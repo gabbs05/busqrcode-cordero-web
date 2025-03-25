@@ -4,16 +4,15 @@ import { NextResponse } from "next/server";
 
 connectDB();
 
-
 export async function DELETE(
   request: Request,
   { params }: { params: { delet: string } }
 ) {
-  const { delet } = await params;
+  const { delet } = params;
   console.log("delet:", delet);
 
   try {
-    //eliminar el registro
+    // eliminar el registro
     await timestamps.findByIdAndDelete(delet);
     return NextResponse.json(
       { message: "Firma eliminada correctamente" },
