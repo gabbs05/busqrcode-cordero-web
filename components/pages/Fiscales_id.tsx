@@ -88,7 +88,7 @@ export default function Plantillas_Pizarras_id({ fiscal, params }: Plantillas_Pi
                                 <Divider />
                                 <div className="my-4 w-full">
                                     <form onSubmit={submitForm} className="grid gap-4 pr-3 w-full" >
-                                        <Input name="numero" isRequired required type='number' value={numero} label='Numero del Fiscal' onChange={(e) => setNumero(e.target.value)} />
+                                        <Input name="numero" isRequired required type='text' value={numero} label='Numero del Fiscal' onChange={(e) => setNumero(e.target.value)} />
                                         <Input name='username' isRequired required type='text' value={username} label='Nombre de Usuario Fiscal' onChange={(e) => setUsername(e.target.value)} />
                                         <Input name='password' isRequired required type='text' label='Contraseña' min={8} onChange={(e) => setPassword(e.target.value)} />
                                         <Textarea name="ubicacion" isRequired required type='text' value={ubicacion} label='Ubicacion del Fiscal' onChange={(e) => setUbicacion(e.target.value)} />

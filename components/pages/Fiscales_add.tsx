@@ -63,7 +63,7 @@ export default function Fiscales_add({ unidades }: UnidadesProps) {
                                 <div className="my-4 w-full">
                                     <form onSubmit={submitForm} className="grid gap-4 pr-3 w-full">
                                         <Textarea name="ubicacion" isRequired required type='text' label='Ubicación del Fiscal' />
-                                        <Input name="numero" isRequired required type='number' label='Número del Fiscal' />
+                                        <Input name="numero" isRequired required type='text' label='Número del Fiscal' />
                                         <Input name='username' isRequired required type='text' label='Nombre de usuario'/>
                                         <Input name='password' isRequired required type='text' min={8} value={password} onChange={(e)=> setPassword(e.target.value)} label='Contraseña'/>
                                         <Switch name='sethora' defaultSelected={false} onChange={(e) => setHora(e.target.checked)}>¿Selecciona Hora?</Switch>

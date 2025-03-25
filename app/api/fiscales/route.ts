@@ -52,7 +52,6 @@ export async function PUT(request: any) {
    try {
      jwt.verify(token.value, process.env.JWT_SECRET as Secret) as JwtPayload;
      const findNumero = await fiscales.findOne({ numero });
-     console.log(findNumero._id.toString(), _id);
      if (findNumero && findNumero._id.toString() != _id) {
        return NextResponse.json(
          { error: "Ya existe un fiscal con este número" },
@@ -78,7 +77,7 @@ export async function PUT(request: any) {
      }
      return NextResponse.json(updatedUnidad);
    } catch (error) {
-     console.log;
+     console.log(error);
      return NextResponse.json((error as Error).message, { status: 400 });
    }
 }
