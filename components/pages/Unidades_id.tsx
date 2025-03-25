@@ -9,16 +9,25 @@ import QRCode from 'qrcode'
 interface Plantillas_Pizarras_idProps {
     unidad?:any
     params?: any
+    unidades?:any
 }
 
-export default function Unidades_id({ unidad, params }: Plantillas_Pizarras_idProps) {
+export default function Unidades_id({ unidad, params, unidades }: Plantillas_Pizarras_idProps) {
     const router = useRouter()
     const unid = JSON.parse(unidad)
+    const unids = JSON.parse(unidades)
     const [nombre_conductor, setNombre_conductor] = useState(unid.nombre_conductor)
     const [telefono_conductor, setTelefono_conductor] = useState(unid.telefono_conductor)
     const [numero, setNumero] = useState(unid.numero)
     const [placa, setPlaca] = useState(unid.placa)
     const [src, setSrc] = useState('')
+
+
+
+        const nextUnid = unids.find((u: any) => u.numero == unid.numero + 1)
+        const prevUnid = unids.find((u: any) => u.numero == unid.numero - 1)    
+        console.log(nextUnid, prevUnid)
+
 
     const submitForm = async (e: any) => {
         e.preventDefault();
@@ -86,7 +95,10 @@ export default function Unidades_id({ unidad, params }: Plantillas_Pizarras_idPr
     return (
         <>
             <div className="mb-10 rounded-sm border border-stroke dark:bg-slate-800 bg-slate-200 shadow-default dark:border-strokedark dark:bg-boxdark">
-                <div className="flex flex-col justify-center items-center m-4">
+                <div className="flex justify-between items-center m-4">
+                    <Button className='hover:cursor-pointer' onPress={() => prevUnid ? router.push(`/unidades/${prevUnid._id}`) : null} disabled={!prevUnid} variant="shadow">
+                        Unidad Anterior
+                    </Button>
                     <Card>
                         <CardHeader className="mx-4 flex flex-col justify-center items-center">
                             <h1 className="font-bold text-2xl my-3">Editar Unidad</h1>
@@ -119,6 +131,9 @@ export default function Unidades_id({ unidad, params }: Plantillas_Pizarras_idPr
                             ) : ''}
                         </CardFooter>
                     </Card>
+                    <Button className='hover:cursor-pointer' onPress={() => nextUnid ? router.push(`/unidades/${nextUnid._id}`) : null} disabled={!nextUnid} variant="shadow">
+                        Siguiente Unidad
+                    </Button>
                 </div>
               
                 <div className="m-5">
