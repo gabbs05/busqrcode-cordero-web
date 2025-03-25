@@ -1,18 +1,18 @@
 import { connectDB } from "@/libs/db";
 import timestamps from "@/models/timestamps";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 connectDB();
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { delet: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ delet: any }> }
 ) {
-  const { delet } = params;
+  const { delet } = await params;
   console.log("delet:", delet);
 
   try {
-    // eliminar el registro
+    //eliminar el registro
     await timestamps.findByIdAndDelete(delet);
     return NextResponse.json(
       { message: "Firma eliminada correctamente" },
@@ -20,6 +20,9 @@ export async function DELETE(
     );
   } catch (error) {
     console.log(error);
-    return NextResponse.json((error as Error).message, { status: 400 });
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 400 }
+    );
   }
 }
