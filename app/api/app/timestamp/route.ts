@@ -102,14 +102,14 @@ export async function POST(request: any) {
     // Buscar el fiscal con ubicación 'Terminal' o 'Barrancas'
     const findFiscales = await fiscales.find();
     const terminalFiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "Terminal");
-    const barrancasFiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "Barrancas");
+    const R1R2Fiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "R1R2");
     console.log(terminalFiscal, "Terminal");
-    console.log(barrancasFiscal, "Barrancas");
+    console.log(R1R2Fiscal, "R1R2");
 
     // Filtrar el registro anterior más cercano en el lapso de 60 minutos
      const closestTimestamp = unidTimestamps.find((timestamp) => {
        const terminalFiscalId = terminalFiscal?._id;
-       const barrancasFiscalId = barrancasFiscal?._id;
+       const R1R2FiscalId = R1R2Fiscal?._id;
 
        // Buscar fiscales con setHora === true
        const setHoraFiscales = findFiscales
@@ -119,7 +119,7 @@ export async function POST(request: any) {
        // Verificar si el timestamp.id_fiscal coincide con el fiscal del terminal, barrancas o alguno con setHora === true
        const isValidFiscal =
          timestamp.id_fiscal.toString() === terminalFiscalId?.toString() ||
-         timestamp.id_fiscal.toString() === barrancasFiscalId?.toString() ||
+         timestamp.id_fiscal.toString() === R1R2FiscalId?.toString() ||
          setHoraFiscales.some(
            (fiscalId) => timestamp.id_fiscal.toString() === fiscalId?.toString()
          );
