@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import { unique } from "next/dist/build/utils";
 
 const fiscales = new Schema(
     {
@@ -6,7 +7,8 @@ const fiscales = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'fiscales',
             required: true,
-            trim:true
+            trim:true,
+            unique: true,
         },
         numero_ruta:{
             type: String,

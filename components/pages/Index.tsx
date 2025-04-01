@@ -533,7 +533,7 @@ export default function Index({
 
             if (group[i].fiscal == "Terminal" && group[i + 1]?.fiscal == "Biblioteca") {
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 1].hora_telefono);
               const diff = time2 - time1;
               group[i + 1].onTime = diff <= 28;
               group[i + 1].onTimeText = diff <= 28 ? "A tiempo" : "Retardado";
@@ -552,7 +552,7 @@ export default function Index({
             } 
             if (group[i].fiscal == "Terminal" && group[i + 3]?.fiscal == "Biblioteca") {
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 3].hora_telefono);
               const diff = time2 - time1;
               group[i + 3].onTime = diff <= 28;
               group[i + 3].onTimeText = diff <= 28 ? "A tiempo" : "Retardado";
@@ -564,7 +564,7 @@ export default function Index({
 
             if (group[i].fiscal == "Terminal" && group[i + 1]?.fiscal == "Plazuela de Táriba") {
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 1].hora_telefono);
               const diff = time2 - time1;
               group[i + 1].onTime = diff <= 40;
               group[i + 1].onTimeText = diff <= 40 ? "A tiempo" : "Retardado";
@@ -583,7 +583,7 @@ export default function Index({
             }
             if (group[i].fiscal == "Terminal" && group[i + 3]?.fiscal == "Plazuela de Táriba") {
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 3].hora_telefono);
               const diff = time2 - time1;
               group[i + 3].onTime = diff <= 40;
               group[i + 3].onTimeText = diff <= 40 ? "A tiempo" : "Retardado";
@@ -592,7 +592,7 @@ export default function Index({
             }
             if (group[i].fiscal == "Terminal" && group[i + 4]?.fiscal == "Plazuela de Táriba") {
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 4].hora_telefono);
               const diff = time2 - time1;
               group[i + 4].onTime = diff <= 40;
               group[i + 4].onTimeText = diff <= 40 ? "A tiempo" : "Retardado";
@@ -605,7 +605,7 @@ export default function Index({
               const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
               let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 1].hora_telefono);
               const diff = time2 - time1;
               group[i + 1].onTime = diff <= tiempo;
               group[i + 1].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
@@ -628,7 +628,7 @@ export default function Index({
               const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
               let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 3].hora_telefono);
               const diff = time2 - time1;
               group[i + 3].onTime = diff <= tiempo;
               group[i + 3].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
@@ -639,7 +639,7 @@ export default function Index({
               const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
               let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 4].hora_telefono);
               const diff = time2 - time1;
               group[i + 4].onTime = diff <= tiempo;
               group[i + 4].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
@@ -650,7 +650,7 @@ export default function Index({
               const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
               let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
               const time1 = convertToMinutes(group[i].hora_servidor);
-              const time2 = convertToMinutes(group[i + 2].hora_telefono);
+              const time2 = convertToMinutes(group[i + 5].hora_telefono);
               const diff = time2 - time1;
               group[i + 5].onTime = diff <= tiempo;
               group[i + 5].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
