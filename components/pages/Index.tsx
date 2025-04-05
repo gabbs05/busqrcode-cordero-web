@@ -70,7 +70,7 @@ const CustomCard: React.FC<CustomCardProps> = ({ columns1, titulo, group, onDown
           <TableBody items={group} aria-label="Tabla">
             {(item) => (
               <TableRow key={(item as any).key} className={classNames('rounded', {
-                "bg-red-700": (item as any).onTime === false,
+                "bg-red-700": (item as any).onTime == false,
               })}
                 aria-label="Tabla">
                 {(columnKey) => (
@@ -124,7 +124,7 @@ export default function Index({
   const [mostrarRetardados, setMostrarRetardados] = useState(true)
   useEffect(() => {
     const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0);
+      setIsAtTop(window.scrollY == 0);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -205,10 +205,10 @@ export default function Index({
       const [timePart, modifier] = time.split(' ');
       let [hours, minutes] = timePart.split(':').map(Number);
 
-      if (modifier === 'PM' && hours !== 12) {
+      if (modifier == 'PM' && hours !== 12) {
         hours += 12;
       }
-      if (modifier === 'AM' && hours === 12) {
+      if (modifier == 'AM' && hours == 12) {
         hours = 0;
       }
 
@@ -234,10 +234,10 @@ export default function Index({
   const [timeCompare, settimeCompare] = useState<any>(null);
 
   const getTimestamps: any[] = timestamps_.map((timestamp: any) => {
-    const ruta = rutas_.filter((r: any) => r._id === timestamp.id_ruta);
-    const fiscal = fiscales_.filter((f: any) => f._id === timestamp.id_fiscal);
-    const unidad = unidades_.filter((u: any) => u._id === timestamp.id_unidad);
-    if (timestamp.timestamp_salida === null) {
+    const ruta = rutas_.filter((r: any) => r._id == timestamp.id_ruta);
+    const fiscal = fiscales_.filter((f: any) => f._id == timestamp.id_fiscal);
+    const unidad = unidades_.filter((u: any) => u._id == timestamp.id_unidad);
+    if (timestamp.timestamp_salida == null) {
       return {
         key: timestamp._id,
         hora_date: formatDate(timestamp.createdAt),
@@ -360,7 +360,7 @@ export default function Index({
         label: "Retraso (min)",
       }
     ];
-    rows = rows.filter((timestamp: any) => timestamp.unidad == unidad && timestamp.ruta === ruta);
+    rows = rows.filter((timestamp: any) => timestamp.unidad == unidad && timestamp.ruta == ruta);
   } else if (ruta) {
     columns = [
       {
@@ -397,10 +397,10 @@ export default function Index({
       }
     ];
     rows = rows.filter(
-      (timestamp: any) => timestamp.ruta === ruta
+      (timestamp: any) => timestamp.ruta == ruta
     );
   } else if (fiscal) {
-    rows = rows.filter((timestamp: any) => timestamp.fiscal === fiscal);
+    rows = rows.filter((timestamp: any) => timestamp.fiscal == fiscal);
   } else if (unidad) {
     rows = rows.filter((timestamp: any) => timestamp.unidad == unidad);
   }
@@ -425,8 +425,8 @@ export default function Index({
     "timeCompare",
     timeCompare
   );
-  const fiscalAExists = rows.some((row: any) => row.fiscal === fiscalA);
-  const fiscalBExists = rows.some((row: any) => row.fiscal === fiscalB);
+  const fiscalAExists = rows.some((row: any) => row.fiscal == fiscalA);
+  const fiscalBExists = rows.some((row: any) => row.fiscal == fiscalB);
 
 
   //seccionar la comparación automáticamente por unidad independientemente de la ruta, definir los tiempos de comparación en minutos en las determinadas sitauciones
@@ -481,10 +481,10 @@ export default function Index({
         const convertToMinutes = (timeString: string) => {
           const [time, modifier] = timeString.split(' ');
           let [hours, minutes] = time.split(':').map(Number);
-          if (modifier === 'PM' && hours !== 12) {
+          if (modifier == 'PM' && hours !== 12) {
             hours += 12;
           }
-          if (modifier === 'AM' && hours === 12) {
+          if (modifier == 'AM' && hours == 12) {
             hours = 0;
           }
           return hours * 60 + minutes;
@@ -497,7 +497,7 @@ export default function Index({
 
         //confitería el loro
         for (let i = 0; i < group.length - 1; i++) {
-          if (group[i]?.fiscal === "Terminal" && group[i + 1]?.fiscal === "Confitería el Loro") {
+          if (group[i]?.fiscal == "Terminal" && group[i + 1]?.fiscal == "Confitería el Loro") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -602,8 +602,8 @@ export default function Index({
 
           //central cordero
           if (group[i]?.fiscal == "Terminal" && group[i + 1]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
-            let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -614,8 +614,8 @@ export default function Index({
           }
 
           if (group[i]?.fiscal == "Terminal" && group[i + 2]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
-            let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
             const diff = time2 - time1;
@@ -625,8 +625,8 @@ export default function Index({
             group[i + 2].delay = diff > tiempo ? diff - tiempo : 0;
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 3]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
-            let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 3].hora_telefono);
             const diff = time2 - time1;
@@ -636,8 +636,8 @@ export default function Index({
             group[i + 3].delay = diff > tiempo ? diff - tiempo : 0;
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 4]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
-            let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 4].hora_telefono);
             const diff = time2 - time1;
@@ -647,8 +647,8 @@ export default function Index({
             group[i + 4].delay = diff > tiempo ? diff - tiempo : 0;
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 5]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
-            let tiempo = (ruta?.nombre === '4/2') ? 77 : 72;
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 5].hora_telefono);
             const diff = time2 - time1;
@@ -663,7 +663,7 @@ export default function Index({
           // rutas bajando R1 y R2
 
           //central cordero
-          if (group[i]?.fiscal === "R1R2" && group[i + 1]?.fiscal === "Central Cordero") {
+          if (group[i]?.fiscal == "R1R2" && group[i + 1]?.fiscal == "Central Cordero") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -673,7 +673,7 @@ export default function Index({
             group[i + 1].delay = diff > 10 ? diff - 10 : 0;
           }
           //plaza andrés bello
-          if (group[i]?.fiscal === "R1R2" && group[i + 1]?.fiscal === "Plaza Andrés Bello") {
+          if (group[i]?.fiscal == "R1R2" && group[i + 1]?.fiscal == "Plaza Andrés Bello") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -682,7 +682,7 @@ export default function Index({
             group[i + 1].diff = diff;
             group[i + 1].delay = diff > 18 ? diff - 18 : 0;
           }
-          if (group[i]?.fiscal === "R1R2" && group[i + 2]?.fiscal === "Plaza Andrés Bello") {
+          if (group[i]?.fiscal == "R1R2" && group[i + 2]?.fiscal == "Plaza Andrés Bello") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -692,7 +692,7 @@ export default function Index({
             group[i + 2].delay = diff > 18 ? diff - 18 : 0;
           }
           //Plazuela de Táriba
-          if (group[i]?.fiscal === "R1R2" && group[i + 1]?.fiscal === "Plazuela de Táriba") {
+          if (group[i]?.fiscal == "R1R2" && group[i + 1]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -701,7 +701,7 @@ export default function Index({
             group[i + 1].diff = diff;
             group[i + 1].delay = diff > 30 ? diff - 30 : 0;
           }
-          if (group[i]?.fiscal === "R1R2" && group[i + 2]?.fiscal === "Plazuela de Táriba") {
+          if (group[i]?.fiscal == "R1R2" && group[i + 2]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -710,7 +710,7 @@ export default function Index({
             group[i + 2].diff = diff;
             group[i + 2].delay = diff > 30 ? diff - 30 : 0;
           }
-          if (group[i]?.fiscal === "R1R2" && group[i + 3]?.fiscal === "Plazuela de Táriba") {
+          if (group[i]?.fiscal == "R1R2" && group[i + 3]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -722,7 +722,7 @@ export default function Index({
 
 
           // R8
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 1]?.fiscal === "Plaza Andrés Bello") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Plaza Andrés Bello") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
             const diff = time2 - time1;
@@ -731,7 +731,7 @@ export default function Index({
             group[i + 1].diff = diff;
             group[i + 1].delay = diff > 48 ? diff - 48 : 0;
           }
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 2]?.fiscal === "Bomba San Rafael") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Bomba San Rafael") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
             const diff = time2 - time1;
@@ -740,7 +740,7 @@ export default function Index({
             group[i + 2].diff = diff;
             group[i + 2].delay = diff > 58 ? diff - 58 : 0;
           }
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 3]?.fiscal === "Plazuela de Táriba") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 3]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 3].hora_telefono);
             const diff = time2 - time1;
@@ -749,7 +749,7 @@ export default function Index({
             group[i + 3].diff = diff;
             group[i + 3].delay = diff > 70 ? diff - 70 : 0;
           }
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 4]?.fiscal === "Terminal") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 4]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 4].hora_telefono);
             const diff = time2 - time1;
@@ -761,16 +761,16 @@ export default function Index({
 
           //
           // Rutas bajando R6 y R7 y R8
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 1]?.fiscal === "Bomba San Rafael") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Bomba San Rafael") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
             let tiempo = 0
-            if (ruta?.nombre === 'R6') {
+            if (ruta?.nombre == 'R6') {
               tiempo = 19
-            } else if (ruta?.nombre === 'R7') {
+            } else if (ruta?.nombre == 'R7') {
               tiempo = 27
-            } else if (ruta?.nombre === 'R8') {
+            } else if (ruta?.nombre == 'R8') {
               tiempo = 58
             }
             const diff = time2 - time1;
@@ -780,16 +780,16 @@ export default function Index({
             group[i + 1].delay = diff > tiempo ? diff - tiempo : 0;
           }
 
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 1]?.fiscal === "Plazuela de Táriba") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
             let tiempo = 0
-            if (ruta?.nombre === 'R6') {
+            if (ruta?.nombre == 'R6') {
               tiempo = 31
-            } else if (ruta?.nombre === 'R7') {
+            } else if (ruta?.nombre == 'R7') {
               tiempo = 39
-            } else if (ruta?.nombre === 'R8') {
+            } else if (ruta?.nombre == 'R8') {
               tiempo = 70
             }
             const diff = time2 - time1;
@@ -798,16 +798,16 @@ export default function Index({
             group[i + 1].diff = diff;
             group[i + 1].delay = diff > tiempo ? diff - tiempo : 0;
           }
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 2]?.fiscal === "Plazuela de Táriba") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
             let tiempo = 0
-            if (ruta?.nombre === 'R6') {
+            if (ruta?.nombre == 'R6') {
               tiempo = 31
-            } else if (ruta?.nombre === 'R7') {
+            } else if (ruta?.nombre == 'R7') {
               tiempo = 39
-            } else if (ruta?.nombre === 'R8') {
+            } else if (ruta?.nombre == 'R8') {
               tiempo = 70
             }
             const diff = time2 - time1;
@@ -819,16 +819,16 @@ export default function Index({
 
 
 
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 1]?.fiscal === "Terminal") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
             let tiempo = 0
-            if (ruta?.nombre === 'R6') {
+            if (ruta?.nombre == 'R6') {
               tiempo = 60
-            } else if (ruta?.nombre === 'R7') {
+            } else if (ruta?.nombre == 'R7') {
               tiempo = 70
-            } else if (ruta?.nombre === 'R8') {
+            } else if (ruta?.nombre == 'R8') {
               tiempo = 90
             }
             const diff = time2 - time1;
@@ -837,16 +837,16 @@ export default function Index({
             group[i + 1].diff = diff;
             group[i + 1].delay = diff > tiempo ? diff - tiempo : 0;
           }
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 2]?.fiscal === "Terminal") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
             let tiempo = 0
-            if (ruta?.nombre === 'R6') {
+            if (ruta?.nombre == 'R6') {
               tiempo = 60
-            } else if (ruta?.nombre === 'R7') {
+            } else if (ruta?.nombre == 'R7') {
               tiempo = 70
-            } else if (ruta?.nombre === 'R8') {
+            } else if (ruta?.nombre == 'R8') {
               tiempo = 90
             }
             const diff = time2 - time1;
@@ -855,16 +855,16 @@ export default function Index({
             group[i + 2].diff = diff;
             group[i + 2].delay = diff > tiempo ? diff - tiempo : 0;
           }
-          if (group[i]?.fiscal === "Central Cordero" && group[i + 3]?.fiscal === "Terminal") {
+          if (group[i]?.fiscal == "Central Cordero" && group[i + 3]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 3].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id === group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
             let tiempo = 0
-            if (ruta?.nombre === 'R6') {
+            if (ruta?.nombre == 'R6') {
               tiempo = 60
-            } else if (ruta?.nombre === 'R7') {
+            } else if (ruta?.nombre == 'R7') {
               tiempo = 70
-            } else if (ruta?.nombre === 'R8') {
+            } else if (ruta?.nombre == 'R8') {
               tiempo = 90
             }
             const diff = time2 - time1;
@@ -893,7 +893,7 @@ export default function Index({
   // Función para filtrar registros retardados
   const getRegistrosRetardados = (registrosOrdenados: any[]): any[] => {
     return registrosOrdenados.filter(registro =>
-      registro.group.some((item: any) => item.onTime === false)
+      registro.group.some((item: any) => item.onTime == false)
     );
   };
 
@@ -1216,7 +1216,7 @@ export default function Index({
                   <TableBody items={registro.group} aria-label="Tabla" >
                     {(item) => (
                       <TableRow key={(item as any).key} className={classNames('rounded', {
-                        "bg-red-700": (item as any).onTime === false,
+                        "bg-red-700": (item as any).onTime == false,
                       })}
                         aria-label="Tabla">
                         {(columnKey) => (
@@ -1254,7 +1254,7 @@ export default function Index({
                   <TableBody items={registro.group} aria-label="Tabla" >
                     {(item) => (
                       <TableRow key={(item as any).key} className={classNames('rounded', {
-                        "bg-red-700": (item as any).onTime === false,
+                        "bg-red-700": (item as any).onTime == false,
                       })}
                         aria-label="Tabla">
                         {(columnKey) => (
@@ -1294,7 +1294,7 @@ export default function Index({
               <TableBody items={showRows ? rows : []}>
                 {(item) => (
                   <TableRow key={item.key} className={classNames('rounded', {
-                    "bg-red-700": item.onTime === false,
+                    "bg-red-700": item.onTime == false,
                   })}>
                     {(columnKey) => (
                       <TableCell>
