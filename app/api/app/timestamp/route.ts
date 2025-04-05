@@ -83,7 +83,6 @@ export async function POST(request: any) {
     // Buscar registros de timestamps donde coincidan id_unidad, id_ruta y createdAt sea del día de hoy
     const unidTimestamps = await timestamps.find({
       id_unidad,
-      id_ruta,
       createdAt: {
         $gte: today,
         $lt: tomorrow,
@@ -103,13 +102,13 @@ export async function POST(request: any) {
     const findFiscales = await fiscales.find();
     const terminalFiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "Terminal");
     const R1R2Fiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "R1R2");
-    console.log(terminalFiscal, "Terminal");
-    console.log(R1R2Fiscal, "R1R2");
+    const centralFiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "Central Cordero");
 
     // Filtrar el registro anterior más cercano en el lapso de 60 minutos
      const closestTimestamp = unidTimestamps.find((timestamp) => {
        const terminalFiscalId = terminalFiscal?._id;
        const R1R2FiscalId = R1R2Fiscal?._id;
+       const centralFiscalId = centralFiscal?._id;
 
        // Buscar fiscales con setHora === true
        const setHoraFiscales = findFiscales
@@ -120,6 +119,7 @@ export async function POST(request: any) {
        const isValidFiscal =
          timestamp.id_fiscal.toString() === terminalFiscalId?.toString() ||
          timestamp.id_fiscal.toString() === R1R2FiscalId?.toString() ||
+          timestamp.id_fiscal.toString() === centralFiscalId?.toString() ||
          setHoraFiscales.some(
            (fiscalId) => timestamp.id_fiscal.toString() === fiscalId?.toString()
          );
@@ -149,9 +149,10 @@ export async function POST(request: any) {
       const saveTimestamp = await timestamp.save();
       return NextResponse.json(saveTimestamp);
     } else {
-
+      if (closestTimestamp) {
+      console.log(closestTimestamp, "Timestamp más cercano encontrado");
          const timestamp = new timestamps({
-           id_ruta,
+           id_ruta: closestTimestamp.id_ruta,
            id_unidad,
            id_fiscal,
            timestamp_telefono,
@@ -159,7 +160,6 @@ export async function POST(request: any) {
          });
 
 
-    if (closestTimestamp) {
       const findFiscal2 = await fiscales.findOne({
         _id: closestTimestamp.id_fiscal,
       });
@@ -273,8 +273,7 @@ export async function POST(request: any) {
     }else{
       console.log('no se encontró timestamp cercano')
     }
-      const saveTimestamp = await timestamp.save();
-      return NextResponse.json(saveTimestamp);
+      return NextResponse.json({ message: "No se encontró timestamp cercano" }, { status: 202 });
     }
   } catch (error) {
     console.log(error);
