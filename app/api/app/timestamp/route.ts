@@ -164,6 +164,9 @@ export async function POST(request: any) {
         _id: closestTimestamp.id_fiscal,
       });
       
+
+      //subiendo
+
       let tiempo = 0;
       if (
         findFiscal.ubicacion == "Confitería el Loro" &&
@@ -206,6 +209,44 @@ export async function POST(request: any) {
         findFiscal2.ubicacion == "R1R2"
       ) {
         tiempo = 30;
+      } else if (
+        findFiscal.ubicacion == "Plaza Andrés Bello" &&
+        findFiscal2.ubicacion == "Central Codero"
+      ) {
+        tiempo = 48;
+      } else if (
+        findFiscal.ubicacion == "Bomba San Rafael" &&
+        findFiscal2.ubicacion == "Central Codero"
+      ) {
+        if (findRuta?.nombre === "R6") {
+          tiempo = 19;
+        } else if (findRuta?.nombre === "R7") {
+          tiempo = 27;
+        } else if (findRuta?.nombre === "R8") {
+          tiempo = 58;
+        }
+      } else if (
+        findFiscal.ubicacion == "Plazuela de Táriba" &&
+        findFiscal2.ubicacion == "Central Codero"
+      ) {
+        if (findRuta?.nombre === "R6") {
+          tiempo = 31;
+        } else if (findRuta?.nombre === "R7") {
+          tiempo = 39;
+        } else if (findRuta?.nombre === "R8") {
+          tiempo = 70;
+        }
+      } else if (
+        findFiscal.ubicacion == "Terminal" &&
+        findFiscal2.ubicacion == "Central Codero"
+      ) {
+        if (findRuta?.nombre === "R6") {
+          tiempo = 70;
+        } else if (findRuta?.nombre === "R7") {
+          tiempo = 60;
+        } else if (findRuta?.nombre === "R8") {
+          tiempo = 90;
+        }
       }
       
 
