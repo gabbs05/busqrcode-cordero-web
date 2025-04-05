@@ -602,7 +602,7 @@ export default function Index({
 
           //central cordero
           if (group[i]?.fiscal == "Terminal" && group[i + 1]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
@@ -614,7 +614,7 @@ export default function Index({
           }
 
           if (group[i]?.fiscal == "Terminal" && group[i + 2]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
@@ -625,7 +625,7 @@ export default function Index({
             group[i + 2].delay = diff > tiempo ? diff - tiempo : 0;
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 3]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 3].hora_telefono);
@@ -636,7 +636,7 @@ export default function Index({
             group[i + 3].delay = diff > tiempo ? diff - tiempo : 0;
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 4]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 4].hora_telefono);
@@ -647,7 +647,7 @@ export default function Index({
             group[i + 4].delay = diff > tiempo ? diff - tiempo : 0;
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 5]?.fiscal == "Central Cordero") {
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = (ruta?.nombre == '4/2') ? 77 : 72;
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 5].hora_telefono);
@@ -725,38 +725,47 @@ export default function Index({
           if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Plaza Andrés Bello") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const diff = time2 - time1;
-            group[i + 1].onTime = diff <= 48;
-            group[i + 1].onTimeText = diff <= 48 ? "A tiempo" : "Retardado";
-            group[i + 1].diff = diff;
-            group[i + 1].delay = diff > 48 ? diff - 48 : 0;
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
+            if (ruta?.nombre == 'R8') {
+              const diff = time2 - time1;
+              group[i + 1].onTime = diff <= 48;
+              group[i + 1].onTimeText = diff <= 48 ? "A tiempo" : "Retardado";
+              group[i + 1].diff = diff;
+              group[i + 1].delay = diff > 48 ? diff - 48 : 0;
+            }
           }
           if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Bomba San Rafael") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
             const diff = time2 - time1;
-            group[i + 2].onTime = diff <= 58;
-            group[i + 2].onTimeText = diff <= 58 ? "A tiempo" : "Retardado";
-            group[i + 2].diff = diff;
-            group[i + 2].delay = diff > 58 ? diff - 58 : 0;
+            if (ruta?.nombre == 'R8') {
+              group[i + 2].onTime = diff <= 58;
+              group[i + 2].onTimeText = diff <= 58 ? "A tiempo" : "Retardado";
+              group[i + 2].diff = diff;
+              group[i + 2].delay = diff > 58 ? diff - 58 : 0;
+            }
           }
           if (group[i]?.fiscal == "Central Cordero" && group[i + 3]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 3].hora_telefono);
             const diff = time2 - time1;
-            group[i + 3].onTime = diff <= 70;
-            group[i + 3].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
-            group[i + 3].diff = diff;
-            group[i + 3].delay = diff > 70 ? diff - 70 : 0;
+            if (ruta?.nombre == 'R8') {
+              group[i + 3].onTime = diff <= 70;
+              group[i + 3].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
+              group[i + 3].diff = diff;
+              group[i + 3].delay = diff > 70 ? diff - 70 : 0;
+            }
           }
           if (group[i]?.fiscal == "Central Cordero" && group[i + 4]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 4].hora_telefono);
             const diff = time2 - time1;
-            group[i + 4].onTime = diff <= 90;
-            group[i + 4].onTimeText = diff <= 90 ? "A tiempo" : "Retardado";
-            group[i + 4].diff = diff;
-            group[i + 4].delay = diff > 90 ? diff - 90 : 0;
+            if (ruta?.nombre == 'R8') {
+              group[i + 4].onTime = diff <= 90;
+              group[i + 4].onTimeText = diff <= 90 ? "A tiempo" : "Retardado";
+              group[i + 4].diff = diff;
+              group[i + 4].delay = diff > 90 ? diff - 90 : 0;
+            }
           }
 
           //
@@ -764,7 +773,7 @@ export default function Index({
           if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Bomba San Rafael") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = 0
             if (ruta?.nombre == 'R6') {
               tiempo = 19
@@ -783,7 +792,7 @@ export default function Index({
           if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = 0
             if (ruta?.nombre == 'R6') {
               tiempo = 31
@@ -801,7 +810,7 @@ export default function Index({
           if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Plazuela de Táriba") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = 0
             if (ruta?.nombre == 'R6') {
               tiempo = 31
@@ -822,8 +831,9 @@ export default function Index({
           if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = 0
+            console.log(group[i], 'nombre de la ruta')
             if (ruta?.nombre == 'R6') {
               tiempo = 60
             } else if (ruta?.nombre == 'R7') {
@@ -840,7 +850,7 @@ export default function Index({
           if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 2].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = 0
             if (ruta?.nombre == 'R6') {
               tiempo = 60
@@ -858,7 +868,7 @@ export default function Index({
           if (group[i]?.fiscal == "Central Cordero" && group[i + 3]?.fiscal == "Terminal") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 3].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta._id == group[i].id_ruta);
+            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
             let tiempo = 0
             if (ruta?.nombre == 'R6') {
               tiempo = 60
