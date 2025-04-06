@@ -7,9 +7,20 @@ import { NextResponse } from "next/server";
 connectDB();
 
 export async function POST(request: any) {
-  const { id_ruta, id_unidad, id_fiscal, timestamp_telefono, timestamp_salida } = await request.json();
-  console.log(id_ruta, id_unidad, id_fiscal, timestamp_telefono, timestamp_salida);
-
+  const {
+    id_ruta,
+    id_unidad,
+    id_fiscal,
+    timestamp_telefono,
+    timestamp_salida,
+  } = await request.json();
+  console.log(
+    id_ruta,
+    id_unidad,
+    id_fiscal,
+    timestamp_telefono,
+    timestamp_salida
+  );
 
   const formatHour = (dateString: string) => {
     const date = new Date(dateString);
@@ -53,7 +64,6 @@ export async function POST(request: any) {
     return hours * 60 + minutes;
   };
 
-
   const compareTimestamps = (
     time1: string,
     time2: string,
@@ -61,7 +71,7 @@ export async function POST(request: any) {
   ) => {
     const minutes1 = convertToMinutes(time1);
     const minutes2 = convertToMinutes(time2);
-    console.log(time1, time2, maxDelay)
+    console.log(time1, time2, maxDelay);
     // Calcular la diferencia en minutos
     const diff = minutes2 - minutes1;
     return {
@@ -71,7 +81,6 @@ export async function POST(request: any) {
       delay: diff > maxDelay ? diff - maxDelay : 0,
     };
   };
-
 
   try {
     // Obtener la fecha de hoy
@@ -100,43 +109,48 @@ export async function POST(request: any) {
 
     // Buscar el fiscal con ubicación 'Terminal' o 'Barrancas'
     const findFiscales = await fiscales.find();
-    const terminalFiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "Terminal");
-    const R1R2Fiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "R1R2");
-    const centralFiscal = findFiscales.find((fiscal) => fiscal.ubicacion === "Central Cordero");
+    const terminalFiscal = findFiscales.find(
+      (fiscal) => fiscal.ubicacion === "Terminal"
+    );
+    const R1R2Fiscal = findFiscales.find(
+      (fiscal) => fiscal.ubicacion === "R1R2"
+    );
+    const centralFiscal = findFiscales.find(
+      (fiscal) => fiscal.ubicacion === "Central Cordero"
+    );
 
     // Filtrar el registro anterior más cercano en el lapso de 60 minutos
-     const closestTimestamp = unidTimestamps.find((timestamp) => {
-       const terminalFiscalId = terminalFiscal?._id;
-       const R1R2FiscalId = R1R2Fiscal?._id;
-       const centralFiscalId = centralFiscal?._id;
+    const closestTimestamp = unidTimestamps.find((timestamp) => {
+      const terminalFiscalId = terminalFiscal?._id;
+      const R1R2FiscalId = R1R2Fiscal?._id;
+      const centralFiscalId = centralFiscal?._id;
 
-       // Buscar fiscales con setHora === true
-       const setHoraFiscales = findFiscales
-         .filter((fiscal) => fiscal.sethora === true)
-         .map((fiscal) => fiscal._id);
+      // Buscar fiscales con setHora === true
+      const setHoraFiscales = findFiscales
+        .filter((fiscal) => fiscal.sethora === true)
+        .map((fiscal) => fiscal._id);
 
-       // Verificar si el timestamp.id_fiscal coincide con el fiscal del terminal, barrancas o alguno con setHora === true
-       const isValidFiscal =
-         timestamp.id_fiscal.toString() === terminalFiscalId?.toString() ||
-         timestamp.id_fiscal.toString() === R1R2FiscalId?.toString() ||
-          timestamp.id_fiscal.toString() === centralFiscalId?.toString() ||
-         setHoraFiscales.some(
-           (fiscalId) => timestamp.id_fiscal.toString() === fiscalId?.toString()
-         );
+      // Verificar si el timestamp.id_fiscal coincide con el fiscal del terminal, barrancas o alguno con setHora === true
+      const isValidFiscal =
+        timestamp.id_fiscal.toString() === terminalFiscalId?.toString() ||
+        timestamp.id_fiscal.toString() === R1R2FiscalId?.toString() ||
+        timestamp.id_fiscal.toString() === centralFiscalId?.toString() ||
+        setHoraFiscales.some(
+          (fiscalId) => timestamp.id_fiscal.toString() === fiscalId?.toString()
+        );
 
-       if (isValidFiscal) {
-         const timeDiff = Math.abs(
-           new Date().getTime() - new Date(timestamp.createdAt).getTime()
-         );
-         const diffInMinutes = timeDiff / (1000 * 100); // Convertir diferencia a minutos
-         return diffInMinutes <= 100;
-       }
-       return false;
-     });
+      if (isValidFiscal) {
+        const timeDiff = Math.abs(
+          new Date().getTime() - new Date(timestamp.createdAt).getTime()
+        );
+        const diffInMinutes = timeDiff / (1000 * 100); // Convertir diferencia a minutos
+        return diffInMinutes <= 100;
+      }
+      return false;
+    });
 
     // Si no se encuentra un registro válido, devolver null
     const findFiscal = await fiscales.findOne({ _id: id_fiscal });
-
 
     if (findFiscal.sethora) {
       const timestamp = new timestamps({
@@ -144,119 +158,117 @@ export async function POST(request: any) {
         id_unidad,
         id_fiscal,
         timestamp_telefono,
-        timestamp_salida
-      });;
+        timestamp_salida,
+      });
       const saveTimestamp = await timestamp.save();
       return NextResponse.json(saveTimestamp);
     } else {
       if (closestTimestamp) {
-      console.log(closestTimestamp, "Timestamp más cercano encontrado");
-         const timestamp = new timestamps({
-           id_ruta: closestTimestamp.id_ruta,
-           id_unidad,
-           id_fiscal,
-           timestamp_telefono,
-           timestamp_salida: null,
-         });
+        console.log(closestTimestamp, "Timestamp más cercano encontrado");
+        const timestamp = new timestamps({
+          id_ruta: closestTimestamp.id_ruta,
+          id_unidad,
+          id_fiscal,
+          timestamp_telefono,
+          timestamp_salida: null,
+        });
 
+        const findFiscal2 = await fiscales.findOne({
+          _id: closestTimestamp.id_fiscal,
+        });
 
-      const findFiscal2 = await fiscales.findOne({
-        _id: closestTimestamp.id_fiscal,
-      });
-      
+        //subiendo
 
-      //subiendo
-
-      let tiempo = 0;
-      if (
-        findFiscal.ubicacion == "Confitería el Loro" &&
-        findFiscal2.ubicacion == "Terminal"
-      ) {
-        tiempo = 15;
-      } else if (
-        findFiscal.ubicacion == "Dorsay" &&
-        findFiscal2.ubicacion == "Terminal"
-      ) {
-        tiempo = 23;
-      } else if (
-        findFiscal.ubicacion == "Biblioteca" &&
-        findFiscal2.ubicacion == "Terminal"
-      ) {
-        tiempo = 28;
-      } else if (
-        findFiscal.ubicacion == "Plazuela de Táriba" &&
-        findFiscal2.ubicacion == "Terminal"
-      ) {
-        tiempo = 40;
-      } else if (
-        findFiscal.ubicacion == "Central Cordero" &&
-        findFiscal2.ubicacion == "Terminal"
-      ) {
-        tiempo = findRuta?.nombre === "4/2" ? 77 : 72;
-      } else if (
-        //tiempos bajando
-        findFiscal.ubicacion == "Central Cordero" &&
-        findFiscal2.ubicacion == "R1R2"
-      ) {
-        tiempo = 10;
-      } else if (
-        findFiscal.ubicacion == "Plaza Andrés Bello" &&
-        findFiscal2.ubicacion == "R1R2"
-      ) {
-        tiempo = 18;
-      } else if (
-        findFiscal.ubicacion == "Plazuela de Táriba" &&
-        findFiscal2.ubicacion == "R1R2"
-      ) {
-        tiempo = 30;
-      } else if (
-        findFiscal.ubicacion == "Plaza Andrés Bello" &&
-        findFiscal2.ubicacion == "Central Codero"
-      ) {
-        tiempo = 48;
-      } else if (
-        findFiscal.ubicacion == "Bomba San Rafael" &&
-        findFiscal2.ubicacion == "Central Codero"
-      ) {
-        if (findRuta?.nombre === "R6") {
-          tiempo = 19;
-        } else if (findRuta?.nombre === "R7") {
-          tiempo = 27;
-        } else if (findRuta?.nombre === "R8") {
-          tiempo = 58;
+        let tiempo = 0;
+        if (
+          findFiscal.ubicacion == "Confitería el Loro" &&
+          findFiscal2.ubicacion == "Terminal"
+        ) {
+          tiempo = 15;
+        } else if (
+          findFiscal.ubicacion == "Dorsay" &&
+          findFiscal2.ubicacion == "Terminal"
+        ) {
+          tiempo = 23;
+        } else if (
+          findFiscal.ubicacion == "Biblioteca" &&
+          findFiscal2.ubicacion == "Terminal"
+        ) {
+          tiempo = 28;
+        } else if (
+          findFiscal.ubicacion == "Plazuela de Táriba" &&
+          findFiscal2.ubicacion == "Terminal"
+        ) {
+          tiempo = 40;
+        } else if (
+          findFiscal.ubicacion == "Central Cordero" &&
+          findFiscal2.ubicacion == "Terminal"
+        ) {
+          tiempo = findRuta?.nombre === "4/2" ? 77 : 72;
+        } else if (
+          //tiempos bajando
+          findFiscal.ubicacion == "Central Cordero" &&
+          findFiscal2.ubicacion == "R1R2"
+        ) {
+          tiempo = 10;
+        } else if (
+          findFiscal.ubicacion == "Plaza Andrés Bello" &&
+          findFiscal2.ubicacion == "R1R2"
+        ) {
+          tiempo = 18;
+        } else if (
+          findFiscal.ubicacion == "Bomba San Rafael" &&
+          findFiscal2.ubicacion == "R1R2"
+        ) {
+          tiempo = 28;
+        } else if (
+          findFiscal.ubicacion == "Plazuela de Táriba" &&
+          findFiscal2.ubicacion == "R1R2"
+        ) {
+          tiempo = 40;
+        } else if (
+          findFiscal.ubicacion == "Plaza Andrés Bello" &&
+          findFiscal2.ubicacion == "Central Codero"
+        ) {
+          tiempo = 48;
+        } else if (
+          findFiscal.ubicacion == "Bomba San Rafael" &&
+          findFiscal2.ubicacion == "Central Codero"
+        ) {
+          if (findRuta?.nombre === "R6") {
+            tiempo = 19;
+          } else if (findRuta?.nombre === "R7") {
+            tiempo = 27;
+          } else if (findRuta?.nombre === "R8") {
+            tiempo = 58;
+          }
+        } else if (
+          findFiscal.ubicacion == "Plazuela de Táriba" &&
+          findFiscal2.ubicacion == "Central Codero"
+        ) {
+          if (findRuta?.nombre === "R6") {
+            tiempo = 31;
+          } else if (findRuta?.nombre === "R7") {
+            tiempo = 39;
+          } else if (findRuta?.nombre === "R8") {
+            tiempo = 70;
+          }
+        } else if (
+          findFiscal.ubicacion == "Terminal" &&
+          findFiscal2.ubicacion == "Central Codero"
+        ) {
+          if (findRuta?.nombre === "R6") {
+            tiempo = 70;
+          } else if (findRuta?.nombre === "R7") {
+            tiempo = 60;
+          } else if (findRuta?.nombre === "R8") {
+            tiempo = 90;
+          }
         }
-      } else if (
-        findFiscal.ubicacion == "Plazuela de Táriba" &&
-        findFiscal2.ubicacion == "Central Codero"
-      ) {
-        if (findRuta?.nombre === "R6") {
-          tiempo = 31;
-        } else if (findRuta?.nombre === "R7") {
-          tiempo = 39;
-        } else if (findRuta?.nombre === "R8") {
-          tiempo = 70;
-        }
-      } else if (
-        findFiscal.ubicacion == "Terminal" &&
-        findFiscal2.ubicacion == "Central Codero"
-      ) {
-        if (findRuta?.nombre === "R6") {
-          tiempo = 70;
-        } else if (findRuta?.nombre === "R7") {
-          tiempo = 60;
-        } else if (findRuta?.nombre === "R8") {
-          tiempo = 90;
-        }
-      }
-      
 
-      const time1 = formatHour(closestTimestamp.timestamp_salida)
-      const time2 = formatHour30secs(timestamp_telefono)
-        const comparison = compareTimestamps(
-          time1,
-          time2,
-          tiempo
-        );
+        const time1 = formatHour(closestTimestamp.timestamp_salida);
+        const time2 = formatHour30secs(timestamp_telefono);
+        const comparison = compareTimestamps(time1, time2, tiempo);
         console.log("Comparison Result:", comparison);
 
         if (comparison.onTime) {
@@ -268,12 +280,18 @@ export async function POST(request: any) {
           console.log("Retardado:", comparison.delay);
           const saveTimestamp = await timestamp.save();
           console.log("saveTimestamp:", saveTimestamp);
-          return NextResponse.json({ message: "Retardado", delay: comparison.delay}, { status: 201 });
+          return NextResponse.json(
+            { message: "Retardado", delay: comparison.delay },
+            { status: 201 }
+          );
         }
-    }else{
-      console.log('no se encontró timestamp cercano')
-    }
-      return NextResponse.json({ message: "No se encontró timestamp cercano" }, { status: 202 });
+      } else {
+        console.log("no se encontró timestamp cercano");
+      }
+      return NextResponse.json(
+        { message: "No se encontró timestamp cercano" },
+        { status: 202 }
+      );
     }
   } catch (error) {
     console.log(error);
