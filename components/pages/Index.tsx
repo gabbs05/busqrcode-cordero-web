@@ -882,7 +882,7 @@ export default function Index({
             } else if (ruta?.nombre == 'R7') {
               tiempo = 70
             } else if (ruta?.nombre == 'R8') {
-              tiempo = 90
+              tiempo = 100
             }
             const diff = time2 - time1;
             group[i + 1].onTime = diff <= tiempo;
@@ -900,7 +900,7 @@ export default function Index({
             } else if (ruta?.nombre == 'R7') {
               tiempo = 70
             } else if (ruta?.nombre == 'R8') {
-              tiempo = 90
+              tiempo = 100
             }
             const diff = time2 - time1;
             group[i + 2].onTime = diff <= tiempo;
@@ -918,7 +918,7 @@ export default function Index({
             } else if (ruta?.nombre == 'R7') {
               tiempo = 70
             } else if (ruta?.nombre == 'R8') {
-              tiempo = 90
+              tiempo = 100
             }
             const diff = time2 - time1;
             group[i + 3].onTime = diff <= tiempo;

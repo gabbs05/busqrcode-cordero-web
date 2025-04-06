@@ -143,8 +143,8 @@ export async function POST(request: any) {
         const timeDiff = Math.abs(
           new Date().getTime() - new Date(timestamp.createdAt).getTime()
         );
-        const diffInMinutes = timeDiff / (1000 * 100); // Convertir diferencia a minutos
-        return diffInMinutes <= 100;
+        const diffInMinutes = timeDiff / (1000 * 110); // Convertir diferencia a minutos
+        return diffInMinutes <= 110;
       }
       return false;
     });
@@ -262,7 +262,7 @@ export async function POST(request: any) {
           } else if (findRuta?.nombre === "R7") {
             tiempo = 60;
           } else if (findRuta?.nombre === "R8") {
-            tiempo = 90;
+            tiempo = 100;
           }
         }
 
