@@ -868,7 +868,9 @@ export default function Index({
             } else if (ruta?.nombre == 'R8') {
               tiempo = 58
             } else if (ruta?.nombre == 'R2'){
-              tiempo = 28
+              tiempo = 18
+            } else if (ruta?.nombre == 'R1') {
+              tiempo = 18
             }
             const diff = time2 - time1;
             group[i + 1].onTime = diff <= tiempo;
@@ -889,6 +891,11 @@ export default function Index({
             } else if (ruta?.nombre == 'R8') {
               tiempo = 70
             }
+            else if (ruta?.nombre == 'R2') {
+              tiempo = 30
+            } else if (ruta?.nombre == 'R1') {
+              tiempo = 30
+            }
             const diff = time2 - time1;
             group[i + 1].onTime = diff <= tiempo;
             group[i + 1].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
@@ -906,6 +913,11 @@ export default function Index({
               tiempo = 39
             } else if (ruta?.nombre == 'R8') {
               tiempo = 70
+            }
+            else if (ruta?.nombre == 'R2') {
+              tiempo = 30
+            } else if (ruta?.nombre == 'R1') {
+              tiempo = 30
             }
             const diff = time2 - time1;
             group[i + 2].onTime = diff <= tiempo;
@@ -929,6 +941,11 @@ export default function Index({
             } else if (ruta?.nombre == 'R8') {
               tiempo = 100
             }
+            else if (ruta?.nombre == 'R2') {
+              tiempo = 60
+            } else if (ruta?.nombre == 'R1') {
+              tiempo = 60
+            }
             const diff = time2 - time1;
             group[i + 1].onTime = diff <= tiempo;
             group[i + 1].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
@@ -947,6 +964,11 @@ export default function Index({
             } else if (ruta?.nombre == 'R8') {
               tiempo = 100
             }
+            else if (ruta?.nombre == 'R2') {
+              tiempo = 60
+            } else if (ruta?.nombre == 'R1') {
+              tiempo = 60
+            }
             const diff = time2 - time1;
             group[i + 2].onTime = diff <= tiempo;
             group[i + 2].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
@@ -964,6 +986,11 @@ export default function Index({
               tiempo = 70
             } else if (ruta?.nombre == 'R8') {
               tiempo = 100
+            }
+            else if (ruta?.nombre == 'R2') {
+              tiempo = 60
+            } else if (ruta?.nombre == 'R1') {
+              tiempo = 60
             }
             const diff = time2 - time1;
             group[i + 3].onTime = diff <= tiempo;
