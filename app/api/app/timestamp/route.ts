@@ -227,6 +227,12 @@ export async function POST(request: any) {
         ) {
           tiempo = 40;
         } else if (
+          findFiscal.ubicacion == "Terminal" &&
+          findFiscal2.ubicacion == "R1R2"
+        ) {
+          tiempo = 70;
+          //de central cordero
+        } else if (
           findFiscal.ubicacion == "Plaza Andrés Bello" &&
           findFiscal2.ubicacion == "Central Codero"
         ) {
