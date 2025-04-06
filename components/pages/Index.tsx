@@ -822,6 +822,8 @@ export default function Index({
               tiempo = 27
             } else if (ruta?.nombre == 'R8') {
               tiempo = 58
+            } else if (ruta?.nombre == 'R2'){
+              tiempo = 28
             }
             const diff = time2 - time1;
             group[i + 1].onTime = diff <= tiempo;
