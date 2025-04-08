@@ -177,11 +177,11 @@ export async function POST(request: any) {
         return NextResponse.json({ message: "A tiempo" }, { status: 200 });
       } else {
         console.log("no se encontró timestamp cercano");
+        return NextResponse.json(
+          { message: "No se encontró timestamp cercano" },
+          { status: 202 }
+        );
       }
-      return NextResponse.json(
-        { message: "No se encontró timestamp cercano" },
-        { status: 202 }
-      );
     }
   } catch (error) {
     console.log(error);
