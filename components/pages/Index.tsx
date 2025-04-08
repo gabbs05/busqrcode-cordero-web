@@ -761,51 +761,51 @@ export default function Index({
             group[i + 4].delay = diff > 40 ? diff - 40 : 0;
           }
           //Terminal
-          if (group[i]?.fiscal == "R1R2" && group[i + 1]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const diff = time2 - time1;
-            group[i + 1].onTime = diff <= 70;
-            group[i + 1].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
-            group[i + 1].diff = diff;
-            group[i + 1].delay = diff > 70 ? diff - 70 : 0;
-          }
-          if (group[i]?.fiscal == "R1R2" && group[i + 2]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 2].hora_telefono);
-            const diff = time2 - time1;
-            group[i + 2].onTime = diff <= 70;
-            group[i + 2].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
-            group[i + 2].diff = diff;
-            group[i + 2].delay = diff > 70 ? diff - 70 : 0;
-          }
-          if (group[i]?.fiscal == "R1R2" && group[i + 3]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 3].hora_telefono);
-            const diff = time2 - time1;
-            group[i + 3].onTime = diff <= 70;
-            group[i + 3].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
-            group[i + 3].diff = diff;
-            group[i + 3].delay = diff > 70 ? diff - 70 : 0;
-          }
-          if (group[i]?.fiscal == "R1R2" && group[i + 4]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 4].hora_telefono);
-            const diff = time2 - time1;
-            group[i + 4].onTime = diff <= 70;
-            group[i + 4].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
-            group[i + 4].diff = diff;
-            group[i + 4].delay = diff > 70 ? diff - 70 : 0;
-          }
-          if (group[i]?.fiscal == "R1R2" && group[i + 5]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 5].hora_telefono);
-            const diff = time2 - time1;
-            group[i + 5].onTime = diff <= 70;
-            group[i + 5].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
-            group[i + 5].diff = diff;
-            group[i + 5].delay = diff > 70 ? diff - 70 : 0;
-          }
+          // if (group[i]?.fiscal == "R1R2" && group[i + 1]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 1].hora_telefono);
+          //   const diff = time2 - time1;
+          //   group[i + 1].onTime = diff <= 70;
+          //   group[i + 1].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
+          //   group[i + 1].diff = diff;
+          //   group[i + 1].delay = diff > 70 ? diff - 70 : 0;
+          // }
+          // if (group[i]?.fiscal == "R1R2" && group[i + 2]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 2].hora_telefono);
+          //   const diff = time2 - time1;
+          //   group[i + 2].onTime = diff <= 70;
+          //   group[i + 2].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
+          //   group[i + 2].diff = diff;
+          //   group[i + 2].delay = diff > 70 ? diff - 70 : 0;
+          // }
+          // if (group[i]?.fiscal == "R1R2" && group[i + 3]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 3].hora_telefono);
+          //   const diff = time2 - time1;
+          //   group[i + 3].onTime = diff <= 70;
+          //   group[i + 3].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
+          //   group[i + 3].diff = diff;
+          //   group[i + 3].delay = diff > 70 ? diff - 70 : 0;
+          // }
+          // if (group[i]?.fiscal == "R1R2" && group[i + 4]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 4].hora_telefono);
+          //   const diff = time2 - time1;
+          //   group[i + 4].onTime = diff <= 70;
+          //   group[i + 4].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
+          //   group[i + 4].diff = diff;
+          //   group[i + 4].delay = diff > 70 ? diff - 70 : 0;
+          // }
+          // if (group[i]?.fiscal == "R1R2" && group[i + 5]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 5].hora_telefono);
+          //   const diff = time2 - time1;
+          //   group[i + 5].onTime = diff <= 70;
+          //   group[i + 5].onTimeText = diff <= 70 ? "A tiempo" : "Retardado";
+          //   group[i + 5].diff = diff;
+          //   group[i + 5].delay = diff > 70 ? diff - 70 : 0;
+          // }
 
           // R8
           if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Plaza Andrés Bello") {
@@ -842,17 +842,17 @@ export default function Index({
               group[i + 3].delay = diff > 70 ? diff - 70 : 0;
             }
           }
-          if (group[i]?.fiscal == "Central Cordero" && group[i + 4]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 4].hora_telefono);
-            const diff = time2 - time1;
-            if (ruta?.nombre == 'R8') {
-              group[i + 4].onTime = diff <= 90;
-              group[i + 4].onTimeText = diff <= 90 ? "A tiempo" : "Retardado";
-              group[i + 4].diff = diff;
-              group[i + 4].delay = diff > 90 ? diff - 90 : 0;
-            }
-          }
+          // if (group[i]?.fiscal == "Central Cordero" && group[i + 4]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 4].hora_telefono);
+          //   const diff = time2 - time1;
+          //   if (ruta?.nombre == 'R8') {
+          //     group[i + 4].onTime = diff <= 90;
+          //     group[i + 4].onTimeText = diff <= 90 ? "A tiempo" : "Retardado";
+          //     group[i + 4].diff = diff;
+          //     group[i + 4].delay = diff > 90 ? diff - 90 : 0;
+          //   }
+          // }
 
           //
           // Rutas bajando R6 y R7 y R8
@@ -867,7 +867,7 @@ export default function Index({
               tiempo = 27
             } else if (ruta?.nombre == 'R8') {
               tiempo = 58
-            } else if (ruta?.nombre == 'R2'){
+            } else if (ruta?.nombre == 'R2') {
               tiempo = 18
             } else if (ruta?.nombre == 'R1') {
               tiempo = 18
@@ -928,76 +928,76 @@ export default function Index({
 
 
 
-          if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 1].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
-            let tiempo = 0
-            console.log(group[i], 'nombre de la ruta')
-            if (ruta?.nombre == 'R6') {
-              tiempo = 60
-            } else if (ruta?.nombre == 'R7') {
-              tiempo = 70
-            } else if (ruta?.nombre == 'R8') {
-              tiempo = 100
-            }
-            else if (ruta?.nombre == 'R2') {
-              tiempo = 60
-            } else if (ruta?.nombre == 'R1') {
-              tiempo = 60
-            }
-            const diff = time2 - time1;
-            group[i + 1].onTime = diff <= tiempo;
-            group[i + 1].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
-            group[i + 1].diff = diff;
-            group[i + 1].delay = diff > tiempo ? diff - tiempo : 0;
-          }
-          if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 2].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
-            let tiempo = 0
-            if (ruta?.nombre == 'R6') {
-              tiempo = 60
-            } else if (ruta?.nombre == 'R7') {
-              tiempo = 70
-            } else if (ruta?.nombre == 'R8') {
-              tiempo = 100
-            }
-            else if (ruta?.nombre == 'R2') {
-              tiempo = 60
-            } else if (ruta?.nombre == 'R1') {
-              tiempo = 60
-            }
-            const diff = time2 - time1;
-            group[i + 2].onTime = diff <= tiempo;
-            group[i + 2].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
-            group[i + 2].diff = diff;
-            group[i + 2].delay = diff > tiempo ? diff - tiempo : 0;
-          }
-          if (group[i]?.fiscal == "Central Cordero" && group[i + 3]?.fiscal == "Terminal") {
-            const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 3].hora_telefono);
-            const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
-            let tiempo = 0
-            if (ruta?.nombre == 'R6') {
-              tiempo = 60
-            } else if (ruta?.nombre == 'R7') {
-              tiempo = 70
-            } else if (ruta?.nombre == 'R8') {
-              tiempo = 100
-            }
-            else if (ruta?.nombre == 'R2') {
-              tiempo = 60
-            } else if (ruta?.nombre == 'R1') {
-              tiempo = 60
-            }
-            const diff = time2 - time1;
-            group[i + 3].onTime = diff <= tiempo;
-            group[i + 3].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
-            group[i + 3].diff = diff;
-            group[i + 3].delay = diff > tiempo ? diff - tiempo : 0;
-          }
+          // if (group[i]?.fiscal == "Central Cordero" && group[i + 1]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 1].hora_telefono);
+          //   const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
+          //   let tiempo = 0
+          //   console.log(group[i], 'nombre de la ruta')
+          //   if (ruta?.nombre == 'R6') {
+          //     tiempo = 60
+          //   } else if (ruta?.nombre == 'R7') {
+          //     tiempo = 70
+          //   } else if (ruta?.nombre == 'R8') {
+          //     tiempo = 100
+          //   }
+          //   else if (ruta?.nombre == 'R2') {
+          //     tiempo = 60
+          //   } else if (ruta?.nombre == 'R1') {
+          //     tiempo = 60
+          //   }
+          //   const diff = time2 - time1;
+          //   group[i + 1].onTime = diff <= tiempo;
+          //   group[i + 1].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
+          //   group[i + 1].diff = diff;
+          //   group[i + 1].delay = diff > tiempo ? diff - tiempo : 0;
+          // }
+          // if (group[i]?.fiscal == "Central Cordero" && group[i + 2]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 2].hora_telefono);
+          //   const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
+          //   let tiempo = 0
+          //   if (ruta?.nombre == 'R6') {
+          //     tiempo = 60
+          //   } else if (ruta?.nombre == 'R7') {
+          //     tiempo = 70
+          //   } else if (ruta?.nombre == 'R8') {
+          //     tiempo = 100
+          //   }
+          //   else if (ruta?.nombre == 'R2') {
+          //     tiempo = 60
+          //   } else if (ruta?.nombre == 'R1') {
+          //     tiempo = 60
+          //   }
+          //   const diff = time2 - time1;
+          //   group[i + 2].onTime = diff <= tiempo;
+          //   group[i + 2].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
+          //   group[i + 2].diff = diff;
+          //   group[i + 2].delay = diff > tiempo ? diff - tiempo : 0;
+          // }
+          // if (group[i]?.fiscal == "Central Cordero" && group[i + 3]?.fiscal == "Terminal") {
+          //   const time1 = convertToMinutes(group[i].hora_servidor);
+          //   const time2 = convertToMinutes(group[i + 3].hora_telefono);
+          //   const ruta = rutas_.find((ruta: any) => ruta.nombre == group[i].ruta);
+          //   let tiempo = 0
+          //   if (ruta?.nombre == 'R6') {
+          //     tiempo = 60
+          //   } else if (ruta?.nombre == 'R7') {
+          //     tiempo = 70
+          //   } else if (ruta?.nombre == 'R8') {
+          //     tiempo = 100
+          //   }
+          //   else if (ruta?.nombre == 'R2') {
+          //     tiempo = 60
+          //   } else if (ruta?.nombre == 'R1') {
+          //     tiempo = 60
+          //   }
+          //   const diff = time2 - time1;
+          //   group[i + 3].onTime = diff <= tiempo;
+          //   group[i + 3].onTimeText = diff <= tiempo ? "A tiempo" : "Retardado";
+          //   group[i + 3].diff = diff;
+          //   group[i + 3].delay = diff > tiempo ? diff - tiempo : 0;
+          // }
 
 
 
