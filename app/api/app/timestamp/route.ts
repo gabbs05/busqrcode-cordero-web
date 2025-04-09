@@ -89,6 +89,8 @@ export async function POST(request: any) {
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
+
+
     // Buscar registros de timestamps donde coincidan id_unidad, id_ruta y createdAt sea del día de hoy
     const unidTimestamps = await timestamps.find({
       id_unidad,
@@ -148,6 +150,22 @@ export async function POST(request: any) {
       }
       return false;
     });
+
+
+        const existingTimestamp = await timestamps.findOne({
+          id_unidad,
+          id_fiscal,
+          timestamp_telefono,
+        });
+        
+
+    if (existingTimestamp) {
+      console.log("Ya existe un registro con esos datos");
+      return NextResponse.json(
+        { message: "Ya existe un registro con esos datos" },
+        { status: 202 }
+      );
+    }
 
     // Si no se encuentra un registro válido, devolver null
     const findFiscal = await fiscales.findOne({ _id: id_fiscal });
