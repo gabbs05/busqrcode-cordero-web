@@ -1030,6 +1030,10 @@ export default function Index({
   const registrosRetardados = getRegistrosRetardados(registrosOrdenados);
   console.log(registrosRetardados);
 
+  const listaRetardados = registrosRetardados.flatMap(registro =>
+    registro.group.filter((item: { onTime: boolean; }) => item.onTime === false)
+  );
+  console.log(listaRetardados, 'lista retardados')
 
 
   //descargar imagenes
@@ -1398,11 +1402,47 @@ export default function Index({
           ))}
         </div>
       </section>}
+
+       {/* lista de retardados */}
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 sm:px-6 lg:px-8 xl:px-12">
+        <h1 className="text-xl font-bold">Lista de Retardados</h1>
+        {listaRetardados.length > 0 ? (
+          <Table className='max-w-3xl' aria-label="Example table with dynamic content">
+            <TableHeader columns={columns1} aria-label="Tabla">
+              {(column) => (
+                <TableColumn key={column.key}>{column.label}</TableColumn>
+              )}
+            </TableHeader>
+            <TableBody items={listaRetardados} aria-label="Tabla">
+              {(item) => (
+                <TableRow
+                  key={(item as any).key}
+                  className={classNames("rounded", {
+                    "bg-red-700": (item as any).onTime == false,
+                  })}
+                  aria-label="Tabla"
+                >
+                  {(columnKey) => (
+                    <TableCell>
+                      {/* <Link href={`/registros/${item.key}`}> */}
+                      {getKeyValue(item, columnKey)}
+                      {/* </Link> */}
+                    </TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        ) : (
+          <p>No hay Retardados</p>
+        )}
+      </section>
+      
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
 
         {/* body*/}
 
-        <h1 className="text-xl font-bold ">Registros diarios</h1>
+        <h1 className="text-xl font-bold">Registros diarios</h1>
         <div className={classNames("grid grid-cols-1 md:grid-cols-3 gap-4")}>
           <div
             className={classNames("flex gap-3", {
