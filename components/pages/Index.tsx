@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { ScrollUpIcon } from "../icons";
 import jsPDF from 'jspdf';
+import { usePDF } from 'react-to-pdf';
 interface IndexProps {
   horarios?: any;
   rutas?: any;
@@ -1172,6 +1173,12 @@ export default function Index({
     cardRefs.current = cardRefs.current.slice(0, registrosOrdenados.length);
   }, [registrosOrdenados]);
 
+
+  //pdf de la lista de retardados
+
+  const { toPDF, targetRef } = usePDF({ filename: `retardados${fecha}` });
+
+
   return (
     <div>
       <div ref={hiddenContainerRef} style={{ position: 'absolute', top: '-9999px', left: '-9999px', width: 'auto', height: 'auto', overflow: 'hidden' }}></div>
@@ -1404,10 +1411,13 @@ export default function Index({
       </section>}
 
        {/* lista de retardados */}
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 sm:px-6 lg:px-8 xl:px-12">
+
+
+      <section  className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 sm:px-6 lg:px-8 xl:px-12">
         <h1 className="text-xl font-bold">Lista de Retardados</h1>
+        <Button onPress={() => toPDF()} className="">Descargar Pdf </Button>
         {listaRetardados.length > 0 ? (
-          <Table className='max-w-3xl' aria-label="Example table with dynamic content">
+          <Table ref={targetRef}  className='max-w-3xl' aria-label="Example table with dynamic content">
             <TableHeader columns={columns1} aria-label="Tabla">
               {(column) => (
                 <TableColumn key={column.key}>{column.label}</TableColumn>
