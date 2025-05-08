@@ -1427,9 +1427,7 @@ export default function Index({
               {(item) => (
                 <TableRow
                   key={(item as any).key}
-                  className={classNames("rounded", {
-                    "bg-red-700": (item as any).onTime == false,
-                  })}
+                  className={classNames("rounded")}
                   aria-label="Tabla"
                 >
                   {(columnKey) => (
