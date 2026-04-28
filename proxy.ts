@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-export async function middleware(request: any) {
+export async function proxy(request: any) {
   const jwt = request.cookies.get(process.env.JWT_NAME);
   if(jwt){
       try {

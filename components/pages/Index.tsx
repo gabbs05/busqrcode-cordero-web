@@ -756,6 +756,52 @@ export default function Index({
             group[i + 2].diff = diff;
             group[i + 2].delay = diff > 18 ? diff - 18 : 0;
           }
+          
+          if (group[i]?.fiscal == "Terminal" && group[i + 1]?.fiscal == "Plaza Andrés Bello") {
+            const time1 = convertToMinutes(group[i].hora_servidor);
+            const time2 = convertToMinutes(group[i + 1].hora_telefono);
+            const diff = time2 - time1;
+            const limit = group[i].ruta === "4/2 S" ? 67 : 70;
+            group[i + 1].hora_salida = group[i].hora_servidor;
+            group[i + 1].onTime = diff <= limit;
+            group[i + 1].onTimeText = diff <= limit ? "A tiempo" : "Retardado";
+            group[i + 1].diff = diff;
+            group[i + 1].delay = diff > limit ? diff - limit : 0;
+          }
+          if (group[i]?.fiscal == "Terminal" && group[i + 2]?.fiscal == "Plaza Andrés Bello") {
+            const time1 = convertToMinutes(group[i].hora_servidor);
+            const time2 = convertToMinutes(group[i + 2].hora_telefono);
+            const diff = time2 - time1;
+            const limit = group[i].ruta === "4/2 S" ? 67 : 70;
+            group[i + 2].hora_salida = group[i].hora_servidor;
+            group[i + 2].onTime = diff <= limit;
+            group[i + 2].onTimeText = diff <= limit ? "A tiempo" : "Retardado";
+            group[i + 2].diff = diff;
+            group[i + 2].delay = diff > limit ? diff - limit : 0;
+          }
+          if (group[i]?.fiscal == "Terminal" && group[i + 3]?.fiscal == "Plaza Andrés Bello") {
+            const time1 = convertToMinutes(group[i].hora_servidor);
+            const time2 = convertToMinutes(group[i + 2].hora_telefono);
+            const diff = time2 - time1;
+            const limit = group[i].ruta === "4/2 S" ? 67 : 70;
+            group[i + 3].hora_salida = group[i].hora_servidor;
+            group[i + 3].onTime = diff <= limit;
+            group[i + 3].onTimeText = diff <= limit ? "A tiempo" : "Retardado";
+            group[i + 3].diff = diff;
+            group[i + 3].delay = diff > limit ? diff - limit : 0;
+          }
+          if (group[i]?.fiscal == "Terminal" && group[i + 4]?.fiscal == "Plaza Andrés Bello") {
+            const time1 = convertToMinutes(group[i].hora_servidor);
+            const time2 = convertToMinutes(group[i + 2].hora_telefono);
+            const diff = time2 - time1;
+            const limit = group[i].ruta === "4/2 S" ? 67 : 70;
+            group[i + 4].hora_salida = group[i].hora_servidor;
+            group[i + 4].onTime = diff <= limit;
+            group[i + 4].onTimeText = diff <= limit ? "A tiempo" : "Retardado";
+            group[i + 4].diff = diff;
+            group[i + 4].delay = diff > limit ? diff - limit : 0;
+          }
+
 
 
           // bomba san rafael
@@ -1564,7 +1610,7 @@ export default function Index({
             <TableBody items={datosParaTabla} aria-label="Tabla">
               {(item) => (
                 <TableRow
-                  key={`${(item as any).fiscal}`} 
+                  key={`${(item as any).Fiscal}`} 
                   className={classNames("rounded")}
                   aria-label="Tabla"
                 >
