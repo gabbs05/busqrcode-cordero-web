@@ -13,13 +13,15 @@ export async function POST(request: any) {
     id_fiscal,
     timestamp_telefono,
     timestamp_salida,
+    codigo,
   } = await request.json();
   console.log(
     id_ruta,
     id_unidad,
     id_fiscal,
     timestamp_telefono,
-    timestamp_salida
+    timestamp_salida,
+    codigo
   );
 
   const formatHour = (dateString: string) => {
@@ -170,6 +172,8 @@ export async function POST(request: any) {
     // Si no se encuentra un registro válido, devolver null
     const findFiscal = await fiscales.findOne({ _id: id_fiscal });
 
+    const parsedCodigo = (codigo && [203, 201, 218, 302].includes(Number(codigo))) ? Number(codigo) : null;
+
     if (findFiscal.sethora) {
       const timestamp = new timestamps({
         id_ruta,
@@ -177,6 +181,7 @@ export async function POST(request: any) {
         id_fiscal,
         timestamp_telefono,
         timestamp_salida,
+        codigo: parsedCodigo,
       });
       const saveTimestamp = await timestamp.save();
       return NextResponse.json(saveTimestamp);
@@ -189,6 +194,7 @@ export async function POST(request: any) {
           id_fiscal,
           timestamp_telefono,
           timestamp_salida: null,
+          codigo: parsedCodigo,
         });
         const saveTimestamp = await timestamp.save();
         console.log("saveTimestamp:", saveTimestamp);

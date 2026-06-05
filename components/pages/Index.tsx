@@ -61,7 +61,7 @@ const CustomCard: React.FC<CustomCardProps> = ({ columns1, titulo, group, onDown
         <h1 className="font-bold text-lg">{titulo}</h1>
       </CardHeader>
       <Divider />
-      <CardBody className='h-72'>
+      <CardBody className='h-auto'>
         <Table>
           <TableHeader columns={columns1} aria-label="Tabla">
             {(column) => (
@@ -247,6 +247,7 @@ export default function Index({
         unidad: unidad[0].numero,
         ruta: ruta[0].nombre,
         fiscal: fiscal[0].ubicacion,
+        codigo: timestamp.codigo || "-",
       };
     } else {
       return {
@@ -258,6 +259,7 @@ export default function Index({
         unidad: unidad[0].numero,
         ruta: ruta[0].nombre,
         fiscal: fiscal[0].ubicacion,
+        codigo: timestamp.codigo || "-",
       };
     }
 
@@ -302,6 +304,10 @@ export default function Index({
     {
       key: "delay",
       label: "Retraso (min)",
+    },
+    {
+      key: "codigo",
+      label: "Código",
     }
   ];
   let columns2 = [
@@ -336,6 +342,10 @@ export default function Index({
     {
       key: "delay",
       label: "Retraso (min)",
+    },
+    {
+      key: "codigo",
+      label: "Código",
     }
   ];
   let columns = [
@@ -358,6 +368,10 @@ export default function Index({
     {
       key: "fiscal",
       label: "Fiscal",
+    },
+    {
+      key: "codigo",
+      label: "Código",
     },
   ];
 
@@ -416,6 +430,10 @@ export default function Index({
       {
         key: "delay",
         label: "Retraso (min)",
+      },
+      {
+        key: "codigo",
+        label: "Código",
       }
     ];
     rows = rows.filter((timestamp: any) => timestamp.unidad == unidad && timestamp.ruta == ruta);
@@ -452,6 +470,10 @@ export default function Index({
       {
         key: "delay",
         label: "Retraso (min)",
+      },
+      {
+        key: "codigo",
+        label: "Código",
       }
     ];
     rows = rows.filter(
@@ -474,7 +496,7 @@ export default function Index({
     settimeCompare(null)
   };
 
- 
+
   const fiscalAExists = rows.some((row: any) => row.fiscal == fiscalA);
   const fiscalBExists = rows.some((row: any) => row.fiscal == fiscalB);
 
@@ -490,6 +512,7 @@ export default function Index({
       hora_telefono: timestamp.hora_telefono,
       fiscal: timestamp.fiscal,
       ruta: timestamp.ruta,
+      codigo: timestamp.codigo,
     };
   });
 
@@ -756,7 +779,7 @@ export default function Index({
             group[i + 2].diff = diff;
             group[i + 2].delay = diff > 18 ? diff - 18 : 0;
           }
-          
+
           if (group[i]?.fiscal == "Terminal" && group[i + 1]?.fiscal == "Plaza Andrés Bello") {
             const time1 = convertToMinutes(group[i].hora_servidor);
             const time2 = convertToMinutes(group[i + 1].hora_telefono);
@@ -781,7 +804,7 @@ export default function Index({
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 3]?.fiscal == "Plaza Andrés Bello") {
             const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 2].hora_telefono);
+            const time2 = convertToMinutes(group[i + 3].hora_telefono);
             const diff = time2 - time1;
             const limit = group[i].ruta === "4/2 S" ? 67 : 70;
             group[i + 3].hora_salida = group[i].hora_servidor;
@@ -792,7 +815,7 @@ export default function Index({
           }
           if (group[i]?.fiscal == "Terminal" && group[i + 4]?.fiscal == "Plaza Andrés Bello") {
             const time1 = convertToMinutes(group[i].hora_servidor);
-            const time2 = convertToMinutes(group[i + 2].hora_telefono);
+            const time2 = convertToMinutes(group[i + 4].hora_telefono);
             const diff = time2 - time1;
             const limit = group[i].ruta === "4/2 S" ? 67 : 70;
             group[i + 4].hora_salida = group[i].hora_servidor;
@@ -1493,7 +1516,7 @@ export default function Index({
                 <h1 className="font-bold text-lg">{registro.title}</h1>
               </CardHeader>
               <Divider />
-              <CardBody className='h-72'>
+              <CardBody className='h-auto'>
                 <Table aria-label={`Tabla de ${registro.title}`}>
                   <TableHeader columns={columns1} aria-label="Tabla">
                     {(column) => (
@@ -1531,7 +1554,7 @@ export default function Index({
                 <h1 className="font-bold text-lg">{registro.title}</h1>
               </CardHeader>
               <Divider />
-              <CardBody className='h-72'>
+              <CardBody className='h-auto'>
                 <Table aria-label={`Tabla de ${registro.title}`}>
                   <TableHeader columns={columns1} aria-label="Tabla">
                     {(column) => (
@@ -1561,14 +1584,14 @@ export default function Index({
         </div>
       </section>}
 
-       {/* lista de retardados */}
+      {/* lista de retardados */}
 
 
-      <section  className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 sm:px-6 lg:px-8 xl:px-12">
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 sm:px-6 lg:px-8 xl:px-12">
         <h1 className="text-xl font-bold">Lista de Retardados</h1>
         <Button onPress={() => toPDF()} className="">Descargar Pdf </Button>
         {listaRetardados.length > 0 ? (
-          <Table ref={targetRef}  className='max-w-3xl' aria-label="Example table with dynamic content">
+          <Table ref={targetRef} className='max-w-3xl' aria-label="Example table with dynamic content">
             <TableHeader columns={columns2} aria-label="Tabla">
               {(column) => (
                 <TableColumn key={column.key}>{column.label}</TableColumn>
@@ -1598,7 +1621,7 @@ export default function Index({
       </section>
 
       <section className="w-1/3 max-w-4xl mx-auto flex flex-col items-center justify-center gap-4 py-8 md:py-10 px-4 sm:px-6 lg:px-8">
-          <h1 className='text-xl font-bold'>Control de puntos</h1>
+        <h1 className='text-xl font-bold'>Control de puntos</h1>
         <Button onPress={() => toPDFPuntos()} className="">Descargar Pdf </Button>
         {datosParaTabla.length > 0 ? (
           <Table ref={targetRefPuntos} className='max-w-3xl' aria-label="Example table with dynamic content">
@@ -1610,7 +1633,7 @@ export default function Index({
             <TableBody items={datosParaTabla} aria-label="Tabla">
               {(item) => (
                 <TableRow
-                  key={`${(item as any).Fiscal}`} 
+                  key={`${(item as any).Fiscal}`}
                   className={classNames("rounded")}
                   aria-label="Tabla"
                 >
@@ -1626,8 +1649,8 @@ export default function Index({
         ) : (
           <p>No hay Registros</p>
         )}
-        </section>
-      
+      </section>
+
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
 
 

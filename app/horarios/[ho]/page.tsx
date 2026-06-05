@@ -3,12 +3,12 @@ import { connectDB } from "@/libs/db";
 import Horarios_id from "@/components/pages/Horarios_id";
 import rutas from "@/models/rutas";
 import fiscales from "@/models/fiscales";
-import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 connectDB()
 export default async function Home(props: { params: Promise<{ ho: any }> }) {
     const param = await props.params;
     const horId = await param.ho
-    if (!ObjectId.isValid(horId)) {
+    if (!mongoose.Types.ObjectId.isValid(horId)) {
         return
     }
     const rut = await rutas.find();

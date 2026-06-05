@@ -29,6 +29,10 @@ const timestamps = new Schema(
         type: String,
         default: null,
         trim: true,
+    },
+    codigo:{
+        type: Number,
+        default: null,
     }
   },
   {
